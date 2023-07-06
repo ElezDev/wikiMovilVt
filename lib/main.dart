@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:wiki_virtualt/bloc/cubit/type_user_cubit.dart';
 import 'package:wiki_virtualt/pages/home/home_page.dart';
 import 'package:wiki_virtualt/pages/introduccion/onboarding_screen.dart';
+import 'package:wiki_virtualt/pages/introduccion/welcome.dart';
 import 'package:wiki_virtualt/pages/login/login_page.dart';
 import 'package:wiki_virtualt/pages/register/register_page.dart';
 import 'package:wiki_virtualt/pages/stories/create_stories_page.dart';
@@ -73,6 +74,9 @@ class _MyAppState extends State<MyApp> {
           GetPage(name: '/home', page: () =>  HomePage()),
           GetPage(name: '/intro', page: () =>  OnboardingScreen()),
           GetPage(name: '/createStory', page: () => const  CreateStory()),
+          GetPage(name: '/welcome', page: () => const Welcome(),
+),
+
         ],
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,

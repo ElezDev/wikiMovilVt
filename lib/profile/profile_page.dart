@@ -8,7 +8,6 @@ import 'package:wiki_virtualt/models/response_api_profile.dart';
 import 'package:wiki_virtualt/profile/profile_controller.dart';
 import 'package:wiki_virtualt/widgets/circular_progres_indicator.dart';
 
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -160,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           const EdgeInsetsDirectional.fromSTEB(30, 31.5, 30, 0),
                       child: Column(
                         children: [
-                         const  Row(
+                          const Row(
                             children: [
                               Text(
                                 'Contraseña antigua',
@@ -497,7 +496,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-         
+
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceAround,
             //   children: [

@@ -17,9 +17,12 @@ class LoginController extends GetxController {
   }
 
   goToHomePage() {
+    Get.offAllNamed('/welcome');
+  }
+goToInicioPage() {
     Get.offAllNamed('/home');
   }
-
+   
   login() async {
     try {
       if (emailController.text.isEmpty || passwordController.text.isEmpty) {
@@ -36,7 +39,7 @@ class LoginController extends GetxController {
       GetStorage().write('token', responseApiLogin.data.login.accessToken);
 
       if (responseApiLogin.data.login.registered == false) {
-        Get.offAllNamed('/home');
+        Get.offAllNamed('/welcome');
         return;
       }
       goToHomePage();

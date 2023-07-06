@@ -25,31 +25,32 @@ import '../models/rol_model.dart';
 
 class UserProvider extends GetConnect {
   final AlertGeneric _alertGeneric = AlertGeneric();
-  
+
   get EasyLoading => null;
 
-  Future<ResponseApiRegister?> register(String email, String password) async {
+  Future<ResponseApiRegister?> register(
+      String name, String username, String email, String password) async {
     try {
       Response response = await post(
         apiGraphql,
         {
           'query': '''
-            mutation {
-              register(
-                registerUserInput: {
-                  email: "$email",
-                  password: "$password"
-                }
-              ) {
-                accessToken
-                emailVerified
-                registered
-                
+          mutation {
+            register(
+              registerUserInput: {
+                name: "$name",
+                username: "$username",
+                email: "$email",
+                password: "$password"
               }
+            ) {
+             access_token
             }
-          '''
+          }
+        '''
         },
       );
+
       if (response.statusCode == 401) {
         Get.dialog(await _alertGeneric.alertGeneric(
             'Error', 'Por favor verifique su correo o contraseña'));
@@ -57,14 +58,14 @@ class UserProvider extends GetConnect {
 
       if (response.statusCode != 200) {
         Get.dialog(await _alertGeneric.alertGeneric(
-            'Error', 'Algo salio mal, vuelve a intentarlo'));
+            'Error', 'Algo salió mal, vuelve a intentarlo'));
       }
 
       if (response.statusCode == 200) {
         if (response.body["data"] != null) {
-          ResponseApiRegister responseApiLogin =
+          ResponseApiRegister responseApiRegister =
               ResponseApiRegister.fromJson(response.body);
-          return responseApiLogin;
+          return responseApiRegister;
         } else {
           LoginErrorModel errorLogin = LoginErrorModel.fromJson(response.body);
           throw Failure(errorLogin.errors[0].message);
@@ -75,6 +76,53 @@ class UserProvider extends GetConnect {
     }
     return null;
   }
+
+  // Future<ResponseApiRegister?> register(String email, String password) async {
+  //   try {
+  //     Response response = await post(
+  //       apiGraphql,
+  //       {
+  //         'query': '''
+  //           mutation {
+  //             register(
+  //               registerUserInput: {
+  //                 email: "$email",
+  //                 password: "$password"
+  //               }
+  //             ) {
+  //               accessToken
+  //               emailVerified
+  //               registered
+  //             }
+  //           }
+  //         '''
+  //       },
+  //     );
+  //     if (response.statusCode == 401) {
+  //       Get.dialog(await _alertGeneric.alertGeneric(
+  //           'Error', 'Por favor verifique su correo o contraseña'));
+  //     }
+
+  //     if (response.statusCode != 200) {
+  //       Get.dialog(await _alertGeneric.alertGeneric(
+  //           'Error', 'Algo salio mal, vuelve a intentarlo'));
+  //     }
+
+  //     if (response.statusCode == 200) {
+  //       if (response.body["data"] != null) {
+  //         ResponseApiRegister responseApiLogin =
+  //             ResponseApiRegister.fromJson(response.body);
+  //         return responseApiLogin;
+  //       } else {
+  //         LoginErrorModel errorLogin = LoginErrorModel.fromJson(response.body);
+  //         throw Failure(errorLogin.errors[0].message);
+  //       }
+  //     }
+  //   } on Failure catch (e) {
+  //     throw Failure(e.message);
+  //   }
+  //   return null;
+  // }
 
   Future login(String email, String password) async {
     try {
@@ -421,7 +469,6 @@ class UserProvider extends GetConnect {
     }, headers: {
       'Authorization': 'Bearer $token'
     });
-
 
     if (response.statusCode != 200) {
       Get.dialog(await _alertGeneric.alertGeneric(

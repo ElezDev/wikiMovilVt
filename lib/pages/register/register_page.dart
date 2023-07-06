@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:wiki_virtualt/pages/register/register_controller.dart';
 import 'package:wiki_virtualt/utils/back_groundCover.dart';
 import 'package:wiki_virtualt/widgets/vt_bg.dart';
-
 import '../../globals/globarVar.dart';
 
-class RegisterPage extends StatefulWidget with WidgetsBindingObserver{
+class RegisterPage extends StatefulWidget with WidgetsBindingObserver {
   const RegisterPage({super.key});
 
   @override
@@ -15,13 +14,13 @@ class RegisterPage extends StatefulWidget with WidgetsBindingObserver{
 class _RegisterPageState extends State<RegisterPage> {
   final RegisterController _registerController = RegisterController();
 
- @override
+  @override
   void initState() {
     super.initState();
-   progrest = false;
+    progrest = false;
   }
 
- Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
@@ -39,12 +38,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         _registerForm(context),
                         (progrest == true)
                             ? Center(
-                              child: Container(
-                                  child: CircularProgressIndicator()),
-                            )
+                                child: Container(
+                                    child: CircularProgressIndicator()),
+                              )
                             : Container(),
                       ],
-                    ),                    
+                    ),
                   ],
                 ),
               ),
@@ -83,7 +82,27 @@ class _RegisterPageState extends State<RegisterPage> {
           _emailInput(context),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           const Text(
-            'Contraseña',
+            'Nombre',
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          _nameInput(context),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          const Text(
+            'Nombre de usuario',
+            style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          _usernameInput(context),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+           const Text(
+            'Contraeña',
             style: TextStyle(
               fontSize: 18.0,
               color: Colors.white,
@@ -92,16 +111,6 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           _passwordInput(context),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-          const Text(
-            'Validar contraseña',
-            style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          _validatePasswordInput(context),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.04),
           _registerButton(context),
         ],
       ),
@@ -132,6 +141,54 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  Widget _usernameInput(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      margin: EdgeInsets.only(
+        left: MediaQuery.of(context).size.width * 0.03,
+        right: MediaQuery.of(context).size.width * 0.03,
+      ),
+      height: MediaQuery.of(context).size.height * 0.037,
+      padding: const EdgeInsets.all(0),
+      child: TextField(
+        controller: _registerController.usernameController,
+        decoration: const InputDecoration(
+          fillColor: Colors.white,
+          hintText: 'Username',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.only(left: 15.0, bottom: 13.0),
+        ),
+      ),
+    );
+  }
+
+  Widget _nameInput(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      margin: EdgeInsets.only(
+        left: MediaQuery.of(context).size.width * 0.03,
+        right: MediaQuery.of(context).size.width * 0.03,
+      ),
+      height: MediaQuery.of(context).size.height * 0.037,
+      padding: const EdgeInsets.all(0),
+      child: TextField(
+        controller: _registerController.nameController,
+        decoration: const InputDecoration(
+          fillColor: Colors.white,
+          hintText: 'Name',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.only(left: 15.0, bottom: 13.0),
+        ),
+      ),
+    );
+  }
+
   Widget _passwordInput(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
@@ -147,31 +204,8 @@ class _RegisterPageState extends State<RegisterPage> {
           obscureText: true,
           controller: _registerController.passwordController,
           decoration: const InputDecoration(
-            fillColor:  Colors.white,
-            hintText: '',
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.only(left: 15.0, bottom: 13.0),
-          )),
-    );
-  }
-
-  Widget _validatePasswordInput(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      margin: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.03,
-          right: MediaQuery.of(context).size.width * 0.03),
-      height: MediaQuery.of(context).size.height * 0.037,
-      padding: const EdgeInsets.all(0),
-      child: TextField(
-          obscureText: true,
-          controller: _registerController.confirmPasswordController,
-          decoration: const InputDecoration(
             fillColor: Colors.white,
-            hintText: '',
+            hintText: '*******',
             border: InputBorder.none,
             contentPadding: EdgeInsets.only(left: 15.0, bottom: 13.0),
           )),
@@ -189,8 +223,7 @@ class _RegisterPageState extends State<RegisterPage> {
             progrest = true;
           });
           _registerController.register;
-          setState(() {            
-          });
+          setState(() {});
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xff00C535),

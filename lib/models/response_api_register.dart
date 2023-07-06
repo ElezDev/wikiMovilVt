@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:wiki_virtualt/models/response_api_login.dart';
 
 ResponseApiRegister responseApiRegisterFromJson(String str) =>
     ResponseApiRegister.fromJson(json.decode(str));
@@ -42,43 +43,35 @@ class Data {
 class Register {
   Register({
     required this.accessToken,
-    required this.emailVerified,
     required this.registered,
+    required this.name,
+    required this.username,
     this.roles,
   });
 
   String accessToken;
-  bool emailVerified;
   bool registered;
+  String name;
+  String username;
   List<Role>? roles;
 
   factory Register.fromJson(Map<String, dynamic> json) => Register(
-        accessToken: json["accessToken"],
-        emailVerified: json["emailVerified"],
-        registered: json["registered"],
-        //roles: List<Role>.from(json["roles"].map((x) => Role.fromJson(x))),
+        accessToken: json["access_token"],
+        registered: true,
+        name: json["name"] as String? ?? "",
+        username: json["username"]  as String? ?? "",
+        roles: json["roles"] != null
+            ? List<Role>.from(json["roles"].map((x) => Role.fromJson(x)))
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
-        "accessToken": accessToken,
-        "emailVerified": emailVerified,
+        "access_token": accessToken,
         "registered": registered,
-        //"roles": List<dynamic>.from(roles.map((x) => x.toJson())),
-      };
-}
-
-class Role {
-  String rol;
-
-  Role({
-    required this.rol,
-  });
-
-  factory Role.fromJson(Map<String, dynamic> json) => Role(
-        rol: json["rol"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "rol": rol,
+        "name": name,
+        "username": username,
+        "roles": roles != null
+            ? List<dynamic>.from(roles!.map((x) => x.toJson()))
+            : null,
       };
 }

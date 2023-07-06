@@ -4,8 +4,8 @@ bool asistent = false;
 String api = 'https://b84s14oa6d.execute-api.us-east-1.amazonaws.com';
 // String apiGraphql = '$api/graphql';
 // String apiGraphql = 'https://b84s14oa6d.execute-api.us-east-1.amazonaws.com/graphql';
-String apiGraphql = 'http://192.168.101.4:3000/graphql';
-//  String apiGraphql = 'http://192.168.14.212:3000/graphql';
+//String apiGraphql = 'http://192.168.101.4:3000/graphql';
+ String apiGraphql = 'http://192.168.14.212:3002/graphql';
 
 //calendario create experience
 bool changedDate = true;

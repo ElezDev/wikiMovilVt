@@ -133,18 +133,14 @@ class UserProvider extends GetConnect {
           'query': '''
             mutation {
               login(
-                loginInput: {
+                loginUserInput: {
                   email: "$email"
                   password: "$password"
                 }
               )
               {
-                accessToken
-                emailVerified
-                registered
-                roles {
-                  rol
-                }
+              access_token
+              registered
               }
             }
           '''
@@ -268,57 +264,35 @@ class UserProvider extends GetConnect {
   }
 
   Future<ResponseApiProfile?> getProfile() async {
-    String token = GetStorage().read('token');
-    try {
-      Response response = await post(apiGraphql, {
-        'query': '''
+  String token = GetStorage().read('token');
+  try {
+    Response response = await post(apiGraphql, {
+      'query': '''
         query {
-          Profile {
+          users {
             id
             name
-            lastname
-            profession
-            bio
-            country {
-              id
-              name
-              }
-            img
-            totalFavorites
-            totalFollows
-            gender
-            phone
-            roles {
-              id
-              rol
-            }
-            host {
-              ratingAverage
-            }
-            }
+            username
+            biography
           }
-        '''
-      }, headers: {
-        'Authorization': 'Bearer $token'
-      });
-
-      // if (response.statusCode != 200) {
-      //   Get.dialog(await _alertGeneric.alertGeneric(
-      //       'Error', 'Algo salio mal, vuelve a intentarlo'));
-      // }
-
-      if (response.statusCode == 200) {
-        if (response.body != null) {
-          ResponseApiProfile responseApiProfile =
-              ResponseApiProfile.fromJson(response.body);
-          return responseApiProfile;
         }
+      '''
+    }, headers: {
+      'Authorization': 'Bearer $token'
+    });
+    if (response.statusCode == 200) {
+      if (response.body != null) {
+        ResponseApiProfile responseApiProfile =
+            ResponseApiProfile.fromJson(response.body);
+        return responseApiProfile;
       }
-    } catch (e) {
-      log(e.toString());
     }
-    return null;
+  } catch (e) {
+    log(e.toString());
   }
+  return null;
+}
+
 
   Future<bool> updateProfile(
       String name,

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final responseApiLogin = responseApiLoginFromJson(jsonString);
-
 import 'dart:convert';
 
 ResponseApiLogin responseApiLoginFromJson(String str) =>
@@ -45,44 +41,24 @@ class Data {
 
 class Login {
   String accessToken;
-  bool emailVerified;
-  bool registered;
-  List<Role> roles;
+    bool registered;
+
 
   Login({
     required this.accessToken,
-    required this.emailVerified,
     required this.registered,
-    required this.roles,
+
   });
 
   factory Login.fromJson(Map<String, dynamic> json) => Login(
-        accessToken: json["accessToken"],
-        emailVerified: json["emailVerified"],
+        accessToken: json["access_token"],
         registered: json["registered"],
-        roles: List<Role>.from(json["roles"].map((x) => Role.fromJson(x))),
+
+
       );
 
   Map<String, dynamic> toJson() => {
-        "accessToken": accessToken,
-        "emailVerified": emailVerified,
+        "access_token": accessToken,
         "registered": registered,
-        "roles": List<dynamic>.from(roles.map((x) => x.toJson())),
-      };
-}
-
-class Role {
-  String rol;
-
-  Role({
-    required this.rol,
-  });
-
-  factory Role.fromJson(Map<String, dynamic> json) => Role(
-        rol: json["rol"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "rol": rol,
       };
 }

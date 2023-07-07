@@ -1,3 +1,4 @@
+import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -45,7 +46,6 @@ class RegisterController extends GetxController {
         Get.snackbar('Success', 'You are registered');
         GetStorage().write('token', response.data.register.accessToken);
         GetStorage().write('vprofile', response.data.register.registered);
-        GetStorage().write('typeUser', "TRIPPSTER");
         progrest = false;
         goToLoginPage();
       } else {
@@ -64,6 +64,8 @@ class RegisterController extends GetxController {
       );
     }
   }
+  
+  get fgh => null;
 
 
 

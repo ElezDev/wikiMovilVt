@@ -339,6 +339,10 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   SafeArea _bodyProfile(BuildContext context, ResponseApiProfile response) {
+    String name = response.data.users[0].name;
+    String userName = response.data.users[0].username;
+    String biografia = response.data.users[0].biography;
+
     return SafeArea(
       child: Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
@@ -353,67 +357,56 @@ class _ProfilePageState extends State<ProfilePage> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.5,
                       height: MediaQuery.of(context).size.height * 0.2,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        image: selectedImageProfile != null
-                            ? DecorationImage(
-                                image: FileImage(selectedImageProfile!),
-                              )
-                            : DecorationImage(
-                                image: response.data.profile.img != null
-                                    ? NetworkImage(response.data.profile.img!)
-                                    : const AssetImage(
-                                            'assets/images/profile_icon.png')
-                                        as ImageProvider<Object>,
-                              ),
+                        // image: selectedImageProfile != null
+                        // ? DecorationImage(
+                        //     image: FileImage(selectedImageProfile!),
+                        //   )
+                        // : DecorationImage(
+                        //     image: response.data.profile.img != null
+                        //         ? NetworkImage(response.data.profile.img!)
+                        //         : const AssetImage(
+                        //                 'assets/images/profile_icon.png')
+                        //             as ImageProvider<Object>,
+                        //   ),
                       ),
                     ),
                     FutureBuilder<dynamic>(
                       future: _profileController.getRating(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          var rating =
-                              snapshot.data.data.profile.host.ratingAverage;
-                          return rating == 0
-                              ? Positioned(
-                                  right: 0,
-                                  bottom: 0,
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(8, 8, 18, 8),
-                                    child: Container(
+                          Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(8, 8, 18, 8),
+                                child: Container(
+                                    child: Transform.scale(
+                                        scale: 1.5,
+                                        child: Image.asset(
+                                          'assets/images/reting.png',
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.045,
+                                        ))),
+                              ));
+                          Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(8, 8, 18, 8),
+                                child: Stack(
+                                  children: [
+                                    Container(
                                         child: Transform.scale(
                                             scale: 1.5,
                                             child: Image.asset(
-                                              'assets/images/reting.png',
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.045,
-                                            ))),
-                                  ))
-                              : Positioned(
-                                  right: 0,
-                                  bottom: 0,
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(8, 8, 18, 8),
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                            child: Transform.scale(
-                                                scale: 1.5,
-                                                child: Image.asset(
-                                                    'assets/images/Grupo 7206.png'))),
-                                        Positioned(
-                                            top: 10,
-                                            left: 10,
-                                            child: Text(
-                                              '$rating',
-                                              style: const TextStyle(
-                                                  color: Colors.white),
-                                            )),
-                                      ],
-                                    ),
-                                  ));
+                                                'assets/images/Grupo 7206.png'))),
+                                  ],
+                                ),
+                              ));
                         }
                         return const SizedBox();
                       },
@@ -423,15 +416,14 @@ class _ProfilePageState extends State<ProfilePage> {
             Container(
               margin: const EdgeInsets.only(top: 20),
               child: Text(
-                '${response.data.profile.name} ${response.data.profile.lastname}',
+                '${name} ${userName}',
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.08,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            _jobAndCountry(context, response.data.profile.profession,
-                response.data.profile.country.name),
+            _jobAndCountry(context, biografia),
             Container(
               margin: const EdgeInsets.only(top: 20),
               padding: EdgeInsets.symmetric(
@@ -454,8 +446,6 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _infoStats(context, 'assets/images/profile_icon.png', 'Connx',
-                      response.data.profile.totalFollows),
                   Container(
                     width: 1,
                     margin: EdgeInsets.only(
@@ -465,23 +455,23 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: MediaQuery.of(context).size.height * 0.05,
                     color: Colors.grey[300],
                   ),
-                  FutureBuilder<dynamic>(
-                    future: _profileController.getRating(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        var rating =
-                            snapshot.data.data.profile.host.ratingAverage;
-                        return _infoStats(
-                          context,
-                          'assets/images/rating.png',
-                          'Rating',
-                          // rating == 0 ? "New" : rating,
-                          rating,
-                        );
-                      }
-                      return const SizedBox();
-                    },
-                  ),
+                  // FutureBuilder<dynamic>(
+                  //   future: _profileController.getRating(),
+                  //   builder: (context, snapshot) {
+                  //     if (snapshot.hasData) {
+                  //       var rating =
+                  //           snapshot.data.data.profile.host.ratingAverage;
+                  //       return _infoStats(
+                  //         context,
+                  //         'assets/images/rating.png',
+                  //         'Rating',
+                  //         // rating == 0 ? "New" : rating,
+                  //         rating,
+                  //       );
+                  //     }
+                  //     return const SizedBox();
+                  //   },
+                  // ),
                   Container(
                     width: 1,
                     margin: EdgeInsets.only(
@@ -560,7 +550,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _jobAndCountry(BuildContext context, String job, String country) {
+  Widget _jobAndCountry(BuildContext context, String job) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -586,14 +576,14 @@ class _ProfilePageState extends State<ProfilePage> {
           size: MediaQuery.of(context).size.width * 0.04,
           color: Colors.grey,
         ),
-        Text(
-          country,
-          style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width * 0.035,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey,
-          ),
-        ),
+        // Text(
+        //   country,
+        //   style: TextStyle(
+        //     fontSize: MediaQuery.of(context).size.width * 0.035,
+        //     fontWeight: FontWeight.w400,
+        //     color: Colors.grey,
+        //   ),
+        // ),
       ],
     );
   }

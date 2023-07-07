@@ -44,6 +44,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   dropdown_button2: ^1.9.2
+  elegant_notification: ^1.10.1
 
 dev_dependencies:
   flutter_test:

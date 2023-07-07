@@ -46,23 +46,19 @@ class Register {
     required this.registered,
     required this.name,
     required this.username,
-    this.roles,
   });
 
   String accessToken;
   bool registered;
   String name;
   String username;
-  List<Role>? roles;
 
   factory Register.fromJson(Map<String, dynamic> json) => Register(
         accessToken: json["access_token"],
         registered: true,
         name: json["name"] as String? ?? "",
         username: json["username"]  as String? ?? "",
-        roles: json["roles"] != null
-            ? List<Role>.from(json["roles"].map((x) => Role.fromJson(x)))
-            : null,
+       
       );
 
   Map<String, dynamic> toJson() => {
@@ -70,8 +66,6 @@ class Register {
         "registered": registered,
         "name": name,
         "username": username,
-        "roles": roles != null
-            ? List<dynamic>.from(roles!.map((x) => x.toJson()))
-            : null,
+      
       };
 }

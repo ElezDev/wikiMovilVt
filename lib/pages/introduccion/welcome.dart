@@ -46,6 +46,8 @@ class _WelcomeState extends State<Welcome> {
   }
 
 SafeArea _bodyProfile(BuildContext context, ResponseApiProfile response) {
+  String userName = response.data.users[0].name;
+
   return SafeArea(
     child: Container(
       padding: const EdgeInsets.symmetric(
@@ -69,7 +71,7 @@ SafeArea _bodyProfile(BuildContext context, ResponseApiProfile response) {
                 ),
               ),
               Text(
-                response.data.profile.name,
+                userName,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: MediaQuery.of(context).size.width * 0.08,
@@ -105,7 +107,7 @@ SafeArea _bodyProfile(BuildContext context, ResponseApiProfile response) {
               fontWeight: FontWeight.w100,
             ),
           ),
-          const SizedBox(height:30 ), 
+          const SizedBox(height: 30), 
           _loginButton(context),
         ],
       ),

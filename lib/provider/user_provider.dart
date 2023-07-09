@@ -77,53 +77,6 @@ class UserProvider extends GetConnect {
     return null;
   }
 
-  // Future<ResponseApiRegister?> register(String email, String password) async {
-  //   try {
-  //     Response response = await post(
-  //       apiGraphql,
-  //       {
-  //         'query': '''
-  //           mutation {
-  //             register(
-  //               registerUserInput: {
-  //                 email: "$email",
-  //                 password: "$password"
-  //               }
-  //             ) {
-  //               accessToken
-  //               emailVerified
-  //               registered
-  //             }
-  //           }
-  //         '''
-  //       },
-  //     );
-  //     if (response.statusCode == 401) {
-  //       Get.dialog(await _alertGeneric.alertGeneric(
-  //           'Error', 'Por favor verifique su correo o contraseña'));
-  //     }
-
-  //     if (response.statusCode != 200) {
-  //       Get.dialog(await _alertGeneric.alertGeneric(
-  //           'Error', 'Algo salio mal, vuelve a intentarlo'));
-  //     }
-
-  //     if (response.statusCode == 200) {
-  //       if (response.body["data"] != null) {
-  //         ResponseApiRegister responseApiLogin =
-  //             ResponseApiRegister.fromJson(response.body);
-  //         return responseApiLogin;
-  //       } else {
-  //         LoginErrorModel errorLogin = LoginErrorModel.fromJson(response.body);
-  //         throw Failure(errorLogin.errors[0].message);
-  //       }
-  //     }
-  //   } on Failure catch (e) {
-  //     throw Failure(e.message);
-  //   }
-  //   return null;
-  // }
-
   Future login(String email, String password) async {
     try {
       ResponseApiLogin responseApiLogin;
@@ -141,6 +94,10 @@ class UserProvider extends GetConnect {
               {
               access_token
               registered
+              user{
+              name
+              email
+               }
               }
             }
           '''
@@ -171,55 +128,6 @@ class UserProvider extends GetConnect {
     }
   }
 
-  // Future registerHost(CreateHostEntity dataHost) async {
-  //   try {
-  //     String token = GetStorage().read('token');
-  //     ResponseApiLogin responseApiLogin;
-  //     String languages = jsonEncode(dataHost.languagesIds);
-  //     String countryId = dataHost.countryId;
-  //     Response response = await post(
-  //       apiGraphql,
-  //       {
-  //         'query': '''
-  //           mutation{
-  //             registerHost(
-  //               createHostInput:{
-  //                 name: "${dataHost.name}"
-  //                 lastname: "${dataHost.lastname}"
-  //                 gender: ${dataHost.gender}
-  //                 documentType: ${dataHost.documentType}
-  //                 document: ${dataHost.document}
-  //                 countryId: "$countryId"
-  //                 languagesIds: $languages
-  //                 company: "${dataHost.company}"
-  //                 NIT: ${dataHost.nit}
-  //               }
-  //             )
-  //           }
-  //         '''
-  //       },
-  //       headers: {'Authorization': 'Bearer $token'},
-  //     );
-
-  //     // if (response.statusCode != 200) {
-  //     //   Get.dialog(await _alertGeneric.alertGeneric(
-  //     //       'Error', 'Algo salio mal, vuelve a intentarlo'));
-  //     //   return false;
-  //     // }
-
-  //     if (response.statusCode == 200) {
-  //       if (response.body["data"] != null) {
-  //         return true;
-  //       } else {
-  //         LoginErrorModel errorLogin = LoginErrorModel.fromJson(response.body);
-  //         throw Failure(errorLogin.errors[0].message);
-  //       }
-  //     }
-  //   } on Failure catch (e) {
-  //     throw Failure(e.message);
-  //   }
-  // }
-
   Future typeUser(String email, String password) async {
     try {
       ResponseApiLogin responseApiLogin;
@@ -244,11 +152,6 @@ class UserProvider extends GetConnect {
         },
       );
 
-      // if (response.statusCode != 200) {
-      //   Get.dialog(await _alertGeneric.alertGeneric(
-      //       'Error', 'Algo salio mal, vuelve a intentarlo'));
-      // }
-
       if (response.statusCode == 200) {
         if (response.body["data"] != null) {
           responseApiLogin = ResponseApiLogin.fromJson(response.body);
@@ -264,10 +167,10 @@ class UserProvider extends GetConnect {
   }
 
   Future<ResponseApiProfile?> getProfile() async {
-  String token = GetStorage().read('token');
-  try {
-    Response response = await post(apiGraphql, {
-      'query': '''
+    String token = GetStorage().read('token');
+    try {
+      Response response = await post(apiGraphql, {
+        'query': '''
         query {
           users {
             id
@@ -277,22 +180,21 @@ class UserProvider extends GetConnect {
           }
         }
       '''
-    }, headers: {
-      'Authorization': 'Bearer $token'
-    });
-    if (response.statusCode == 200) {
-      if (response.body != null) {
-        ResponseApiProfile responseApiProfile =
-            ResponseApiProfile.fromJson(response.body);
-        return responseApiProfile;
+      }, headers: {
+        'Authorization': 'Bearer $token'
+      });
+      if (response.statusCode == 200) {
+        if (response.body != null) {
+          ResponseApiProfile responseApiProfile =
+              ResponseApiProfile.fromJson(response.body);
+          return responseApiProfile;
+        }
       }
+    } catch (e) {
+      log(e.toString());
     }
-  } catch (e) {
-    log(e.toString());
+    return null;
   }
-  return null;
-}
-
 
   Future<bool> updateProfile(
       String name,

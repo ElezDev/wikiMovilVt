@@ -1,11 +1,3 @@
-import 'dart:convert';
-
-ResponseApiLogin responseApiLoginFromJson(String str) =>
-    ResponseApiLogin.fromJson(json.decode(str));
-
-String responseApiLoginToJson(ResponseApiLogin data) =>
-    json.encode(data.toJson());
-
 class ResponseApiLogin {
   Data data;
 
@@ -40,25 +32,45 @@ class Data {
 }
 
 class Login {
-  String accessToken;
-    bool registered;
-
+  String? accessToken;
+  bool? registered;
+  Userlog user;
 
   Login({
-    required this.accessToken,
-    required this.registered,
-
+    this.accessToken,
+    this.registered,
+    required this.user,
   });
 
   factory Login.fromJson(Map<String, dynamic> json) => Login(
         accessToken: json["access_token"],
         registered: json["registered"],
-
-
+        user: Userlog.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
         "access_token": accessToken,
         "registered": registered,
+        "user": user.toJson(),
+      };
+}
+
+class Userlog {
+  String? name;
+  String? email;
+
+  Userlog({
+    this.name,
+    this.email,
+  });
+
+  factory Userlog.fromJson(Map<String, dynamic> json) => Userlog(
+        name: json["name"],
+        email: json["email"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "email": email,
       };
 }

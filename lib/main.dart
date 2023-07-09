@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:wiki_virtualt/bloc/cubit/type_user_cubit.dart';
+import 'package:wiki_virtualt/models/response_api_login.dart';
 import 'package:wiki_virtualt/pages/home/home_page.dart';
 import 'package:wiki_virtualt/pages/introduccion/onboarding_screen.dart';
 import 'package:wiki_virtualt/pages/introduccion/welcome.dart';
@@ -29,7 +30,6 @@ void main() async {
     ),
   );
 }
-
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -71,12 +71,10 @@ class _MyAppState extends State<MyApp> {
         getPages: [
           GetPage(name: '/login', page: () => LoginPage()),
           GetPage(name: '/register', page: () => const RegisterPage()),
-          GetPage(name: '/home', page: () =>  HomePage()),
-          GetPage(name: '/intro', page: () =>  OnboardingScreen()),
-          GetPage(name: '/createStory', page: () => const  CreateStory()),
-          GetPage(name: '/welcome', page: () => const Welcome(),
-),
-
+          GetPage(name: '/home', page: () => HomePage()),
+          GetPage(name: '/intro', page: () => OnboardingScreen()),
+          GetPage(name: '/createStory', page: () => const CreateStory()),
+          GetPage(name: '/welcome', page: () => Welcome()),
         ],
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,

@@ -58,19 +58,34 @@ class Login {
 class Userlog {
   String? name;
   String? email;
+  String? username;
+  String? profileImg;
+  String? biography;
 
   Userlog({
     this.name,
     this.email,
+    this.profileImg,
+    this.username,
+    this.biography
+
+
   });
 
   factory Userlog.fromJson(Map<String, dynamic> json) => Userlog(
         name: json["name"],
         email: json["email"],
+        profileImg: json["profile_img"],
+        username: json["username"],
+        biography: json["biography"]
+
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "email": email,
+        "profile_img": profileImg,
+        "username": username,
+        "biography":biography
       };
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:wiki_virtualt/errors/failure.dart';
 import 'package:wiki_virtualt/pages/login/user_log_controller.dart';
+import 'package:wiki_virtualt/profile/data_profile_controller.dart';
 import 'package:wiki_virtualt/provider/user_provider.dart';
 import 'package:wiki_virtualt/widgets/alert_generic.dart';
 
@@ -13,6 +14,9 @@ class LoginController extends GetxController {
   final UserProvider userProvider = UserProvider();
   final AlertGeneric _alertGeneric = AlertGeneric();
   final UserController userController = Get.put(UserController());
+  final DataProfileController userDataController = Get.put(DataProfileController());
+
+
 
   goToRegisterPage() {
     Get.toNamed('/register');
@@ -46,6 +50,7 @@ goToInicioPage() {
       }
       print('Data de inicio de sesión: ${responseApiLogin.data.login.user.name}');
       userController.setUser(responseApiLogin.data.login.user);
+      userDataController.setUserdata(responseApiLogin.data.login.user);
 
       goToHomePage();
     } on Failure catch (e) {

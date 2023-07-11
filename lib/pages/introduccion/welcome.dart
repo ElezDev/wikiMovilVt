@@ -1,11 +1,7 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wiki_virtualt/models/response_api_profile.dart';
 import 'package:wiki_virtualt/pages/login/login_controller.dart';
-import 'package:wiki_virtualt/profile/profile_controller.dart';
 import 'package:wiki_virtualt/utils/back_groundWelcome.dart';
-import 'package:wiki_virtualt/widgets/circular_progres_indicator.dart';
 
 import '../login/user_log_controller.dart';
 
@@ -70,7 +66,7 @@ class _WelcomeState extends State<Welcome> {
                   ),
                 ),
                 Text(
-                  '${user?.name ?? ''}',
+                  '${user?.username ?? ''}',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: MediaQuery.of(context).size.width * 0.08,

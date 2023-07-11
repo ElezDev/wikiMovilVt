@@ -6,22 +6,17 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:wiki_virtualt/globals/globarVar.dart';
-import 'package:wiki_virtualt/models/language_model.dart';
 import 'package:wiki_virtualt/models/login_error_model.dart';
 import 'package:wiki_virtualt/models/response_api_login.dart';
 import 'package:wiki_virtualt/models/response_api_profile.dart';
-import 'package:wiki_virtualt/models/response_api_register.dart';
 import 'package:wiki_virtualt/models/response_change_bio.dart';
 import 'package:wiki_virtualt/models/response_change_password.dart';
-import 'package:wiki_virtualt/models/response_reset_password.dart';
-import 'package:wiki_virtualt/models/response_send_code_change_password.dart';
-import 'package:wiki_virtualt/models/response_verify_code_change_password.dart';
 import 'package:wiki_virtualt/widgets/alert_generic.dart';
 
 import '../errors/failure.dart';
 import '../models/countries_model.dart';
+import '../models/response_api_register.dart';
 import '../models/response_view_profile.dart';
-import '../models/rol_model.dart';
 
 class UserProvider extends GetConnect {
   final AlertGeneric _alertGeneric = AlertGeneric();
@@ -75,7 +70,11 @@ class UserProvider extends GetConnect {
       throw Failure(e.message);
     }
     return null;
+
   }
+
+
+
 
   Future login(String email, String password) async {
     try {
@@ -95,9 +94,12 @@ class UserProvider extends GetConnect {
               access_token
               registered
               user{
-              name
-              email
-               }
+                profile_img
+                biography
+                name
+                email
+                username
+                 }
               }
             }
           '''
@@ -167,7 +169,7 @@ class UserProvider extends GetConnect {
   }
 
   Future<ResponseApiProfile?> getProfile() async {
-    String token = GetStorage().read('token');
+    String? token = GetStorage().read('token');
     try {
       Response response = await post(apiGraphql, {
         'query': '''
@@ -230,12 +232,6 @@ class UserProvider extends GetConnect {
       },
       headers: {'Authorization': 'Bearer $token'},
     );
-
-    // if (response.statusCode != 200) {
-    //   Get.dialog(await _alertGeneric.alertGeneric(
-    //       'Error', 'Algo salio mal, vuelve a intentarlo'));
-    //   return false;
-    // }
     return true;
   }
 
@@ -358,183 +354,7 @@ class UserProvider extends GetConnect {
     }
   }
 
-  Future<ResponseSendCodeChangePassword> sendCodeChangePassword(
-      String email) async {
-    Response response = await post(apiGraphql, {
-      'query': '''
-        mutation
-        {
-          sendCodeChangePassword(email:"$email")
-        }
-        '''
-    });
-
-    if (response.statusCode != 200) {
-      Get.dialog(await _alertGeneric.alertGeneric('Error',
-          'Algo salio mal al recuperar la contraseña, intenta de nuevo'));
-    }
-    ResponseSendCodeChangePassword responseSendCodeChangePassword =
-        ResponseSendCodeChangePassword.fromJson(response.body);
-
-    return responseSendCodeChangePassword;
-  }
-
-  Future<ResponseVerifyCodeChangePassword> verifyCodeChangePassword(
-      String code) async {
-    Response response = await post(apiGraphql, {
-      'query': '''
-      mutation
-      {
-        verifyCodeChangePassword(code:$code)
-      }
-      '''
-    });
-
-    if (response.statusCode != 200) {
-      Get.dialog(await _alertGeneric.alertGeneric('Error',
-          'Algo salio mal al recuperar la contraseña, intenta de nuevo'));
-    }
-    ResponseVerifyCodeChangePassword responseVerifyCodeChangePassword =
-        ResponseVerifyCodeChangePassword.fromJson(response.body);
-    GetStorage().write('recoverToken',
-        responseVerifyCodeChangePassword.data.verifyCodeChangePassword);
-    return responseVerifyCodeChangePassword;
-  }
-
-  Future<ResponseResetPassword> resetPassword(String resetPassword) async {
-    String token = GetStorage().read('recoverToken');
-    Response response = await post(
-      apiGraphql,
-      {
-        'query': '''
-      mutation{
-      resetPassword(password:"$resetPassword")
-          }
-      '''
-      },
-      headers: {'Authorization': 'Bearer $token'},
-    );
-    if (response.statusCode != 200) {
-      Get.dialog(await _alertGeneric.alertGeneric(
-          'Error password', 'Algo salio mal intenta de nuevo'));
-    }
-    ResponseResetPassword responseResetPassword =
-        ResponseResetPassword.fromJson(response.body);
-    return responseResetPassword;
-  }
-
-  Future<List?> getLanguages() async {
-    try {
-      Response response = await post(
-        apiGraphql,
-        {
-          'query': '''
-            {
-            languages{
-              id
-              name
-              sub
-            }
-          }
-        '''
-        },
-      );
-
-      // if (response.statusCode != 200) {
-      //   Get.dialog(await _alertGeneric.alertGeneric(
-      //       'Error', 'Algo salio mal, vuelve a intentarlo'));
-      // }
-
-      if (response.statusCode == 200) {
-        if (response.body["data"] != null) {
-          LanguagesModel responseApiLogin =
-              LanguagesModel.fromJson(response.body);
-          return responseApiLogin.data.languages;
-        } else {
-          LoginErrorModel errorLogin = LoginErrorModel.fromJson(response.body);
-          throw Failure(errorLogin.errors[0].message);
-        }
-      }
-    } on Failure catch (e) {
-      throw Failure(e.message);
-    }
-    return null;
-  }
-
-  Future<List?> getCountries() async {
-    try {
-      Response response = await post(apiGraphql, {
-        'query': '''
-            {
-              countries {
-                id
-                name
-              }
-            }
-        '''
-      }, headers: {
-        'Authorization': 'Bearer ${GetStorage().read('token')}'
-      });
-
-      // if (response.statusCode != 200) {
-      //   Get.dialog(await _alertGeneric.alertGeneric(
-      //       'Error', 'Algo salio mal, vuelve a intentarlo'));
-      // }
-
-      if (response.statusCode == 200) {
-        if (response.body["data"] != null) {
-          CountriesModel responseApiLogin =
-              CountriesModel.fromJson(response.body);
-          return responseApiLogin.data.countries;
-        } else {
-          LoginErrorModel errorLogin = LoginErrorModel.fromJson(response.body);
-          throw Failure(errorLogin.errors[0].message);
-        }
-      }
-    } on Failure catch (e) {
-      throw Failure(e.message);
-    }
-    return null;
-  }
-
-  Future<List?> getRol() async {
-    try {
-      Response response = await post(
-        apiGraphql,
-        {
-          'query': '''
-            {
-              {
-                roles {
-                  id
-                  rol
-                }
-              }
-            }
-        '''
-        },
-      );
-
-      // if (response.statusCode != 200) {
-      //   Get.dialog(await _alertGeneric.alertGeneric(
-      //       'Error', 'Algo salio mal, vuelve a intentarlo'));
-      // }
-
-      if (response.statusCode == 200) {
-        if (response.body["data"] != null) {
-          RolModel responseApiLogin = RolModel.fromJson(response.body);
-          return responseApiLogin.data.roles;
-        } else {
-          LoginErrorModel errorLogin = LoginErrorModel.fromJson(response.body);
-          throw Failure(errorLogin.errors[0].message);
-        }
-      }
-    } on Failure catch (e) {
-      throw Failure(e.message);
-    }
-    return null;
-  }
-
+ 
   Future<ResponseChangeBio> changeBio(String bio) async {
     String token = GetStorage().read('token');
     Response response = await post(apiGraphql, {

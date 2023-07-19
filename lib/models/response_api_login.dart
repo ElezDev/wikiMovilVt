@@ -67,9 +67,7 @@ class Userlog {
     this.email,
     this.profileImg,
     this.username,
-    this.biography
-
-
+    this.biography, // Establecer valor predeterminado como null
   });
 
   factory Userlog.fromJson(Map<String, dynamic> json) => Userlog(
@@ -77,8 +75,7 @@ class Userlog {
         email: json["email"],
         profileImg: json["profile_img"],
         username: json["username"],
-        biography: json["biography"]
-
+        biography: json["biography"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -86,6 +83,6 @@ class Userlog {
         "email": email,
         "profile_img": profileImg,
         "username": username,
-        "biography":biography
+        "biography": biography,
       };
 }

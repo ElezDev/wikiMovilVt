@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                 );
               case 2:
                 return CupertinoTabView(
-                  builder: (BuildContext context) =>  ProfilePage(),
+                  builder: (BuildContext context) =>  MyView(),
                 );
               case 3:
                 return CupertinoTabView(

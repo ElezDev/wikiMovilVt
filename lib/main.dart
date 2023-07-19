@@ -12,6 +12,7 @@ import 'package:wiki_virtualt/pages/home/home_page.dart';
 import 'package:wiki_virtualt/pages/introduccion/onboarding_screen.dart';
 import 'package:wiki_virtualt/pages/introduccion/welcome.dart';
 import 'package:wiki_virtualt/pages/login/login_page.dart';
+import 'package:wiki_virtualt/pages/login/user_log_controller.dart';
 import 'package:wiki_virtualt/pages/register/register_page.dart';
 import 'package:wiki_virtualt/pages/stories/create_stories_page.dart';
 
@@ -31,7 +32,7 @@ void main() async {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -40,6 +41,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Timer? _timer;
 
+  final UserController userController = Get.put(UserController());
   @override
   void initState() {
     super.initState();
@@ -154,27 +156,3 @@ class _MyAppState extends State<MyApp> {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:wiki_vt/pages/introduccion/onboarding_screen.dart';
-
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Conditions',
-//       debugShowCheckedModeBanner: false,
-//       home: OnboardingScreen(),
-//     );
-//   }
-// }

@@ -42,9 +42,9 @@ goToInicioPage() {
         passwordController.text,
       );
 
-      GetStorage().write('token', responseApiLogin.data.login.accessToken);
+      GetStorage().write('token', responseApiLogin!.data.login.accessToken);
 
-      if (responseApiLogin.data.login.registered == false) {
+      if (responseApiLogin?.data.login.registered == false) {
         Get.offAllNamed('/welcome');
         return;
       }

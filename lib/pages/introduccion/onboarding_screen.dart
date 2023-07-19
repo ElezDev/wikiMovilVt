@@ -8,7 +8,10 @@ import 'package:wiki_virtualt/pages/register/register_page.dart';
 import '../../utils/styles.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 

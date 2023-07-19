@@ -30,6 +30,7 @@ class ProfileController extends GetxController {
     return responseApiLogin;
   }
 
+
   goToCreateExperience() {
     GetStorage().remove('tripp_id');
     Get.toNamed('/crear_experiencia_1');

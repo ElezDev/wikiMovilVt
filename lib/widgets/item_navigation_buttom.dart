@@ -6,9 +6,9 @@ class ItemNavigationButton extends StatelessWidget {
       required this.fileIcon,
       required this.title,
       this.isActive = false});
-      final String fileIcon;
-      final String title;
-      final bool isActive;
+  final String fileIcon;
+  final String title;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,11 @@ class ItemNavigationButton extends StatelessWidget {
       children: [
         ImageIcon(AssetImage(fileIcon),
             size: isActive ? 32 : 30,
-            color: isActive ? Colors.green : Colors.grey),
+            color: isActive ? Colors.black : Color.fromARGB(255, 27, 218, 27)),
         Text(title,
             style: TextStyle(
-                color: Color.fromARGB(255, 235, 230, 230),
-                fontSize: 12,
+                color: Colors.black,
+                fontSize: 15,
                 fontWeight: isActive ? FontWeight.bold : FontWeight.normal)),
       ],
     );

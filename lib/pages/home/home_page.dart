@@ -26,15 +26,15 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: CupertinoTabScaffold(
           tabBar: CupertinoTabBar(
             backgroundColor: Colors.transparent,
-            height: 62,
+            height: 54,
             items: const [
               BottomNavigationBarItem(
                 icon: ItemNavigationButton(
-                  fileIcon: 'assets/images/logo.png',
-                  title: 'Myworld',
+                  fileIcon: 'assets/images/home.png',
+                  title: 'Home',
                 ),
                 activeIcon: ItemNavigationButton(
-                  fileIcon: 'assets/images/logo.png',
+                  fileIcon: 'assets/images/home.png',
                   title: 'Home',
                   isActive: true,
                 ),
@@ -52,11 +52,11 @@ class _HomePageState extends State<HomePage> {
               ),
               BottomNavigationBarItem(
                 icon: ItemNavigationButton(
-                  fileIcon: 'assets/images/profile_icon.png',
+                  fileIcon: 'assets/images/profile.png',
                   title: 'Perfil',
                 ),
                 activeIcon: ItemNavigationButton(
-                  fileIcon: 'assets/images/profile_icon.png',
+                  fileIcon: 'assets/images/profile.png',
                   title: 'Perfil',
                   isActive: true,
                 ),

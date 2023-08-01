@@ -90,16 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
           _nameInput(context),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          const Text(
-            'Nombre de usuario',
-            style: TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          _usernameInput(context),
+    
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
            const Text(
             'Contraeña',

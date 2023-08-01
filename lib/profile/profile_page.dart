@@ -13,7 +13,6 @@ class MyView extends StatelessWidget {
     final ProfileController _profileController = ProfileController();
 
     // Utiliza los datos del usuario en esta vista
-    final String? username = user?.username;
     final String? name = user?.name;
     final String? biography = user?.biography;
     final String? profileImageUrl = user?.profileImg;
@@ -71,19 +70,19 @@ class MyView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: Text(
-                '${name} ${username}',
-                style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width * 0.08,
-                  fontWeight: FontWeight.bold,
+                Container(
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    '${name}',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.08,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
-            ),
               ],
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 height: 64,
@@ -105,7 +104,6 @@ class MyView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    
                     Container(
                       width: 1,
                       margin: EdgeInsets.only(
@@ -118,7 +116,6 @@ class MyView extends StatelessWidget {
                     FutureBuilder<dynamic>(
                       future: _profileController.getRating(),
                       builder: (context, snapshot) {
-                    
                         return const SizedBox();
                       },
                     ),
@@ -131,7 +128,6 @@ class MyView extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.05,
                       color: Colors.grey[300],
                     ),
-                  
                   ],
                 ),
               ),

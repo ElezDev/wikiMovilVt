@@ -173,11 +173,11 @@ class LoginPage extends StatelessWidget {
         onPressed: _loginController.login,
 
         // onPressed: _loginController.goToHomePage,
-         style: ElevatedButton.styleFrom(
+        style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xff00C535),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
-          ),  
+          ),
         ),
         child: const Text(
           'Iniciar sesión',

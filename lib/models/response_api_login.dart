@@ -58,7 +58,6 @@ class Login {
 class Userlog {
   String? name;
   String? email;
-  String? username;
   String? profileImg;
   String? biography;
 
@@ -66,7 +65,6 @@ class Userlog {
     this.name,
     this.email,
     this.profileImg,
-    this.username,
     this.biography, // Establecer valor predeterminado como null
   });
 
@@ -74,7 +72,6 @@ class Userlog {
         name: json["name"],
         email: json["email"],
         profileImg: json["profile_img"],
-        username: json["username"],
         biography: json["biography"],
       );
 
@@ -82,7 +79,6 @@ class Userlog {
         "name": name,
         "email": email,
         "profile_img": profileImg,
-        "username": username,
         "biography": biography,
       };
 }

@@ -24,7 +24,7 @@ class UserProvider extends GetConnect {
   get EasyLoading => null;
 
   Future<ResponseApiRegister?> register(
-      String name, String username, String email, String password) async {
+      String name, String email, String password) async {
     try {
       Response response = await post(
         apiGraphql,
@@ -34,7 +34,6 @@ class UserProvider extends GetConnect {
             register(
               registerUserInput: {
                 name: "$name",
-                username: "$username",
                 email: "$email",
                 password: "$password"
               }
@@ -98,8 +97,7 @@ class UserProvider extends GetConnect {
                 profile_img
                 biography
                 name
-                email
-                username
+                email    
               }
             }
           }

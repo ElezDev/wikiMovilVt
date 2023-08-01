@@ -66,7 +66,7 @@ class _WelcomeState extends State<Welcome> {
                   ),
                 ),
                 Text(
-                  '${user?.username ?? ''}',
+                  '${user?.name ?? ''}',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: MediaQuery.of(context).size.width * 0.08,

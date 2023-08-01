@@ -21,11 +21,11 @@ class RegisterController extends GetxController {
     RegExp regExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     try {
       String name = nameController.text.trim();
-      String username = usernameController.text.trim();
+      // String username = usernameController.text.trim();
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
 
-      if (email.isEmpty || password.isEmpty ||name.isEmpty || username.isEmpty) {
+      if (email.isEmpty || password.isEmpty ||name.isEmpty) {
         Get.dialog(await _alertGeneric.alertGeneric(
             'Eror', 'Por favor completa todos los campos'));
 
@@ -41,7 +41,7 @@ class RegisterController extends GetxController {
         return;
       }
       ResponseApiRegister? response =
-          await _userProvider.register(name, username, email, password);
+          await _userProvider.register(name, email, password);
       if (response!.data.register.accessToken.isNotEmpty) {
         Get.snackbar('Success', 'You are registered');
         GetStorage().write('token', response.data.register.accessToken);

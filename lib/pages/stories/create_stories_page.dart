@@ -31,7 +31,7 @@ class _CreateStoryState extends State<CreateStory> {
             mainAxisSize: MainAxisSize.max,
             children: [
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 27),
+                padding: EdgeInsets.fromLTRB(0, 30, 0, 27),
                 child: Text(
                   'Crea un nuevo momento',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
@@ -65,7 +65,7 @@ class _CreateStoryState extends State<CreateStory> {
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
           child: Container(
-            height: 500,
+            height: 420,
             decoration: const BoxDecoration(
               color: Colors.white,
             ),
@@ -77,7 +77,7 @@ class _CreateStoryState extends State<CreateStory> {
                   children: [
                     const Visibility(
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 110, 0, 0),
                       ),
                     ),
                     Padding(
@@ -96,7 +96,7 @@ class _CreateStoryState extends State<CreateStory> {
 
                           // Padding(
                           //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          //   child: _containerImage(context, 1),
+                          //   child: _postComment(),
                           // )
                         ],
                       ),
@@ -117,10 +117,9 @@ class _CreateStoryState extends State<CreateStory> {
         selectedImages[index] = null;
       });
     }
-
     return Center(
       child: Container(
-        width: 340,
+        width: 320,
         height: 390,
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 221, 218, 218),
@@ -346,7 +345,7 @@ class _CreateStoryState extends State<CreateStory> {
   }
 
 Widget _postComment() {
-  return Column(
+  return const Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Flexible(
@@ -422,7 +421,7 @@ Widget _postComment() {
               },
               child: const Text('Crear Momento',
                   style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 11.0,
                       color: Colors.white,
                       fontWeight: FontWeight.w300)),
             ),

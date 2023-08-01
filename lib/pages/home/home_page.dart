@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomNavigationBar: CupertinoTabScaffold(
           tabBar: CupertinoTabBar(
+            backgroundColor: Colors.transparent,
             height: 62,
             items: const [
               BottomNavigationBarItem(
@@ -66,23 +67,23 @@ class _HomePageState extends State<HomePage> {
             switch (index) {
               case 0:
                 return CupertinoTabView(
-                  builder: (BuildContext context) => FacebookPostsScreen(),
+                  builder: (BuildContext context) => PublicationView(),
                 );
               case 1:
                 return CupertinoTabView(
-                  builder: (BuildContext context) => FacebookPostsScreen(),
+                  builder: (BuildContext context) => PublicationView(),
                 );
               case 2:
                 return CupertinoTabView(
-                  builder: (BuildContext context) =>  MyView(),
+                  builder: (BuildContext context) => MyView(),
                 );
               case 3:
                 return CupertinoTabView(
-                  builder: (BuildContext context) => FacebookPostsScreen(),
+                  builder: (BuildContext context) => PublicationView(),
                 );
               default:
                 return CupertinoTabView(
-                  builder: (BuildContext context) => FacebookPostsScreen(),
+                  builder: (BuildContext context) => PublicationView(),
                 );
             }
           },

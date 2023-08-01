@@ -45,19 +45,16 @@ class Register {
     required this.accessToken,
     required this.registered,
     required this.name,
-    required this.username,
   });
 
   String accessToken;
   bool registered;
   String name;
-  String username;
 
   factory Register.fromJson(Map<String, dynamic> json) => Register(
         accessToken: json["access_token"],
         registered: true,
         name: json["name"] as String? ?? "",
-        username: json["username"]  as String? ?? "",
        
       );
 
@@ -65,7 +62,6 @@ class Register {
         "access_token": accessToken,
         "registered": registered,
         "name": name,
-        "username": username,
       
       };
 }

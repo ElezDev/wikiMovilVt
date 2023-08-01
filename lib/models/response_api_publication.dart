@@ -1,195 +1,144 @@
-// import 'dart:convert';
-// import 'package:geocoding/geocoding.dart';
+class ResponseApiPublications{
+  ResponseApiPublications({
+    required this.data,
+  });
 
-// ResponseApiPublications responseApiPublicationsFromJson(String str) =>
-//     ResponseApiPublications.fromJson(json.decode(str));
+  Data data;
 
-// String responseApiPublicationsToJson(ResponseApiPublications data) =>
-//     json.encode(data.toJson());
+  factory ResponseApiPublications.fromJson(Map<String, dynamic> json) =>
+      ResponseApiPublications(data: Data.fromJson(json["data"]));
 
-// class ResponseApiPublications {
-//   ResponseApiPublications({
-//     required this.data,
-//   });
+  Map<String, dynamic> toJson() => {
+        "data": data.toJson(),
+      };
+}
 
-//   Data data;
+class Data {
+  Data({
+    required this.publications,
+  });
 
-//   factory ResponseApiPublications.fromJson(Map<String, dynamic> json) =>
-//       ResponseApiPublications(
-//         data: Data.fromJson(json["data"]),
-//       );
+  List<Publication> publications;
 
-//   Map<String, dynamic> toJson() => {
-//         "data": data.toJson(),
-//       };
-// }
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        publications: List<Publication>.from(
+          json["publications"].map((x) => Publication.fromJson(x)),
+        ),
+      );
 
-// class Data {
-//   Data({
-//     required this.publications,
-//   });
+  Map<String, dynamic> toJson() => {
+        "publications": List<dynamic>.from(publications.map((x) => x.toJson())),
+      };
+}
 
-//   List<Publication> publications;
+class Publication {
+  Publication({
+    required this.id,
+    required this.description,
+    required this.user,
+    required this.categories,
+    required this.multimedia,
+    required this.comments,
+  });
 
-//   factory Data.fromJson(Map<String, dynamic> json) => Data(
-//         publications: List<Publication>.from(
-//             json["publications"].map((x) => Publication.fromJson(x))),
-//       );
+  int id;
+  String description;
+  User user;
+  Categories categories;
+  List<Multimedia> multimedia;
+  List<Comment> comments;
 
-//   Map<String, dynamic> toJson() => {
-//         "publications": List<dynamic>.from(publications.map((x) => x.toJson())),
-//       };
-// }
+  factory Publication.fromJson(Map<String, dynamic> json) => Publication(
+        id: json["id"],
+        description: json["description"],
+        user: User.fromJson(json["user"]),
+        categories: Categories.fromJson(json["categories"]),
+        multimedia: List<Multimedia>.from(
+          json["multimedia"].map((x) => Multimedia.fromJson(x)),
+        ),
+        comments: List<Comment>.from(
+          json["comments"].map((x) => Comment.fromJson(x)),
+        ),
+      );
 
-// class Publication {
-//   Publication({
-//     required this.id,
-//     required this.longitude,
-//     required this.latitude,
-//     required this.description,
-//     required this.numLikes,
-//     required this.media,
-//     required this.profile,
-//     this.placeName,
-//     required this.comments,
-//   });
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "description": description,
+        "user": user.toJson(),
+        "categories": categories.toJson(),
+        "multimedia": List<dynamic>.from(multimedia.map((x) => x.toJson())),
+        "comments": List<dynamic>.from(comments.map((x) => x.toJson())),
+      };
+}
 
-//   String? id;
-//   String longitude;
-//   String latitude;
-//   String? description;
-//   int? numLikes;
-//   List<Media> media;
-//   Profile profile;
-//   String? placeName;
-//   List<Comments> comments;
+class User {
+  User({
+    required this.name,
+    required this.email,
+    required this.profile_img,
+    
+  });
+  String profile_img;
+  String name;
+  String email;
 
-//   factory Publication.fromJson(Map<String, dynamic> json) {
-//     String longitude = json["longitude"].toString();
-//     String latitude = json["latitude"].toString();
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        name: json["name"],
+        email: json["email"],
+         profile_img: json["profile_img"] ,
+      );
 
-//     return Publication(
-//       id: json["id"],
-//       longitude: longitude,
-//       latitude: latitude,
-//       description: json["description"],
-//       numLikes: json["numLikes"],
-//       media: List<Media>.from(json["media"].map((x) => Media.fromJson(x))),
-//       profile: Profile.fromJson(json["profile"]),
-//       comments: List<Comments>.from(
-//           json["comments"].map((x) => Comments.fromJson(x))),
-//     );
-//   }
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "email": email,
+        "profile_img": profile_img,
+      };
+}
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "longitude": longitude,
-//         "latitude": latitude,
-//         "description": description,
-//         "numLikes": numLikes,
-//         "media": List<dynamic>.from(media.map((x) => x.toJson())),
-//         "profile": profile.toJson(),
-//         "comments": List<dynamic>.from(comments.map((x) => x.toJson())),
-//       };
-// }
+class Categories {
+  Categories({
+    required this.name,
+  });
 
-// class Media {
-//   Media({
-//     required this.url,
-//     required this.mimeType,
-//   });
+  String name;
 
-//   String url;
-//   String mimeType;
+  factory Categories.fromJson(Map<String, dynamic> json) => Categories(
+        name: json["name"],
+      );
 
-//   factory Media.fromJson(Map<String, dynamic> json) => Media(
-//         url: json["url"],
-//         mimeType: json["mimeType"],
-//       );
+  Map<String, dynamic> toJson() => {
+        "name": name,
+      };
+}
 
-//   Map<String, dynamic> toJson() => {
-//         "url": url,
-//         "mimeType": mimeType,
-//       };
-// }
+class Multimedia {
+  Multimedia({
+    required this.url,
+  });
 
-// class Profile {
-//   Profile({
-//     this.id,
-//     required this.name,
-//     required this.img,
-//     required this.lastname,
-//   });
+  String url;
 
-//   String? id;
-//   String name;
-//   String? img;
-//   String lastname;
+  factory Multimedia.fromJson(Map<String, dynamic> json) => Multimedia(
+        url: json["url"],
+      );
 
-//   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
-//         id: json["id"],
-//         name: json["name"],
-//         img: json["img"],
-//         lastname: json["lastname"],
-//       );
+  Map<String, dynamic> toJson() => {
+        "url": url,
+      };
+}
 
-//   Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "name": name,
-//         "img": img,
-//         "lastname": lastname,
-//       };
-// }
+class Comment {
+  Comment({
+    required this.comment,
+  });
 
-// class Comments {
-//   Comments({
-//     required this.content,
-//   });
+  String comment;
 
-//   String content;
+  factory Comment.fromJson(Map<String, dynamic> json) => Comment(
+        comment: json["comment"],
+      );
 
-//   factory Comments.fromJson(Map<String, dynamic> json) => Comments(
-//         content: json["content"],
-//       );
-
-//   Map<String, dynamic> toJson() => {
-//         "content": content,
-//       };
-// }
-
-// Future<void> fetchPlaceName(Publication? publication) async {
-//   if (publication != null) {
-//     double latitude = double.parse(publication.latitude);
-//     double longitude = double.parse(publication.longitude);
-
-//     try {
-//       List<Placemark> placemarks =
-//           await placemarkFromCoordinates(latitude, longitude);
-//       String name = placemarks.isNotEmpty
-//           ? getFormattedAddress(placemarks.first)
-//           : 'Dirección desconocida';
-
-//       publication.placeName = name;
-//     } catch (e) {
-//       // Manejar el error
-//       print('Error al obtener el nombre del lugar: $e');
-//       publication.placeName = 'N/N';
-//     }
-//   }
-// }
-
-// String getFormattedAddress(Placemark placemark) {
-//   final addressParts = <String>[];
-
-//   // if (placemark.subLocality != null) {
-//   //   addressParts.add(placemark.subLocality!);
-//   // }
-//   if (placemark.locality != null) {
-//     addressParts.add(placemark.locality!);
-//   }
-//   if (placemark.country != null) {
-//     addressParts.add(placemark.country!);
-//   }
-
-//   return addressParts.join(' , ');
-// }
+  Map<String, dynamic> toJson() => {
+        "comment": comment,
+      };
+}

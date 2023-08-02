@@ -21,6 +21,7 @@ class PublicationProvider extends GetConnect {
                   }
                 multimedia{
                   url
+                  mimeType
                 }
                 comments{
                   comment

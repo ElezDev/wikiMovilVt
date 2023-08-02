@@ -52,10 +52,9 @@ class StoryPage extends StatelessWidget {
                           Get.toNamed('/createStory');
                         },
                         backgroundColor:
-                            const Color.fromARGB(255, 253, 210, 52), 
-                        child: const Icon(
-                          Icons.camera,
-                          color: Colors.white,
+                            const Color.fromARGB(255, 27, 218, 27), 
+                        child: Image.asset(
+                          'assets/images/camstory.png'
                         ),
                       ),
                     ),

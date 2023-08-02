@@ -114,12 +114,15 @@ class Categories {
 class Multimedia {
   Multimedia({
     required this.url,
+    required this.mimeType
   });
 
   String url;
+  String  mimeType;
 
   factory Multimedia.fromJson(Map<String, dynamic> json) => Multimedia(
         url: json["url"],
+        mimeType: json["mimeType"]
       );
 
   Map<String, dynamic> toJson() => {

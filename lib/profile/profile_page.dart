@@ -5,7 +5,9 @@ import 'package:wiki_virtualt/models/response_api_login.dart';
 import 'package:wiki_virtualt/pages/login/user_log_controller.dart';
 import 'package:wiki_virtualt/profile/profile_controller.dart';
 
-class MyView extends StatelessWidget {
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final UserController userController = Get.find<UserController>();

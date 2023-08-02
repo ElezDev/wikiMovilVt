@@ -16,13 +16,13 @@ class _PublicationInteractiontState extends State<PublicationInteractiont> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
-        height: 64,
+        height: 32,
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 10,
         ),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 78, 46, 74),
+          color: Color.fromARGB(128, 78, 46, 74), // Cambiamos el valor del canal alfa a 128 (0-255)
           borderRadius: BorderRadius.circular(50),
           boxShadow: const [
             BoxShadow(
@@ -50,13 +50,13 @@ class _PublicationInteractiontState extends State<PublicationInteractiont> {
               },
             ),
             Container(
+              child: CircleAvatar(backgroundColor: Colors.black12,),
               width: 1,
               margin: EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * 0.02,
                 right: MediaQuery.of(context).size.width * 0.02,
               ),
               height: MediaQuery.of(context).size.height * 0.05,
-              color: const Color.fromARGB(255, 233, 90, 90),
             ),
           ],
         ),

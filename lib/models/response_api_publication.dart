@@ -36,7 +36,7 @@ class Publication {
     required this.id,
     required this.description,
     required this.user,
-    required this.categories,
+    // required this.categories,
     required this.multimedia,
     required this.comments,
   });
@@ -44,7 +44,7 @@ class Publication {
   int id;
   String description;
   User user;
-  Categories categories;
+  // Categories categories;
   List<Multimedia> multimedia;
   List<Comment> comments;
 
@@ -52,7 +52,7 @@ class Publication {
         id: json["id"],
         description: json["description"],
         user: User.fromJson(json["user"]),
-        categories: Categories.fromJson(json["categories"]),
+        // categories: Categories.fromJson(json["categories"]),
         multimedia: List<Multimedia>.from(
           json["multimedia"].map((x) => Multimedia.fromJson(x)),
         ),
@@ -65,7 +65,7 @@ class Publication {
         "id": id,
         "description": description,
         "user": user.toJson(),
-        "categories": categories.toJson(),
+        // "categories": categories.toJson(),
         "multimedia": List<dynamic>.from(multimedia.map((x) => x.toJson())),
         "comments": List<dynamic>.from(comments.map((x) => x.toJson())),
       };

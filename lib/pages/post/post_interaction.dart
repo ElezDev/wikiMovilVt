@@ -19,10 +19,10 @@ class _PublicationInteractiontState extends State<PublicationInteractiont> {
         height: 32,
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 10,
+          vertical: 100,
         ),
         decoration: BoxDecoration(
-          color: Color.fromARGB(128, 78, 46, 74), // Cambiamos el valor del canal alfa a 128 (0-255)
+          color: Color.fromARGB(128, 26, 184, 9), // Cambiamos el valor del canal alfa a 128 (0-255)
           borderRadius: BorderRadius.circular(50),
           boxShadow: const [
             BoxShadow(
@@ -42,22 +42,14 @@ class _PublicationInteractiontState extends State<PublicationInteractiont> {
                 right: MediaQuery.of(context).size.width * 0.02,
               ),
               height: MediaQuery.of(context).size.height * 0.05,
-              color: const Color.fromARGB(255, 216, 59, 59),
+              color: Color.fromARGB(255, 59, 216, 59),
             ),
             FutureBuilder<dynamic>(
               builder: (context, snapshot) {
                 return const SizedBox();
               },
             ),
-            Container(
-              child: CircleAvatar(backgroundColor: Colors.black12,),
-              width: 1,
-              margin: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.02,
-                right: MediaQuery.of(context).size.width * 0.02,
-              ),
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
+           
           ],
         ),
       ),

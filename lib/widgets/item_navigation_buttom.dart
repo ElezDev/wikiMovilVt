@@ -17,10 +17,10 @@ class ItemNavigationButton extends StatelessWidget {
       children: [
         ImageIcon(AssetImage(fileIcon),
             size: isActive ? 32 : 30,
-            color: isActive ? Colors.black : Color.fromARGB(255, 27, 218, 27)),
+            color: isActive ? Color.fromARGB(255, 27, 218, 27) : Colors.black),
         Text(title,
             style: TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 15,
                 fontWeight: isActive ? FontWeight.bold : FontWeight.normal)),
       ],

@@ -6,13 +6,13 @@ import 'package:wiki_virtualt/models/response_api_login.dart';
 import 'package:wiki_virtualt/models/response_api_publication.dart';
 import 'package:wiki_virtualt/pages/login/user_log_controller.dart';
 import 'package:wiki_virtualt/pages/post/post_interaction.dart';
+import 'package:wiki_virtualt/pages/post/publication_content_page.dart';
 import 'package:wiki_virtualt/pages/stories/story.dart';
 import 'package:wiki_virtualt/profile/profile_controller.dart';
 import 'package:wiki_virtualt/provider/publication_provider.dart';
 import 'package:wiki_virtualt/widgets/custom_dialog.dart';
 import 'package:wiki_virtualt/widgets/notification.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
-
 
 class PublicationViewPage extends StatelessWidget {
   final PublicationProvider publicationProvider = PublicationProvider();
@@ -27,11 +27,27 @@ class PublicationViewPage extends StatelessWidget {
     final String? profileImageUrl = user?.profileImg;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: const Center(
           child:
-              CircleAvatar(backgroundColor: Color.fromARGB(255, 27, 218, 27)),
+              CircleAvatar( backgroundColor: Color.fromARGB(255, 27, 218, 27)),
+        ),
+        title: SizedBox(
+          width: 300,
+          height: 33,
+          child: TextField(
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+              hintText: 'Buscar',
+              hintStyle: TextStyle(color: Colors.black),
+              border: InputBorder.none,
+              prefixIcon: Icon(Icons.search, color: Colors.black),
+            ),
+            style: TextStyle(color: Colors.black),
+            onChanged: (query) {},
+          ),
         ),
         actions: [
           Stack(
@@ -45,7 +61,8 @@ class PublicationViewPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => NotificationsPage()),
+                      builder: (context) => NotificationsPage(),
+                    ),
                   );
                 },
               ),
@@ -56,13 +73,13 @@ class PublicationViewPage extends StatelessWidget {
                   padding: EdgeInsets.all(4),
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(
-                        255, 27, 218, 27), // Color del fondo del número
+                        255, 27, 218, 27), 
                     shape: BoxShape.circle,
                   ),
                   child: const Text(
                     "5",
                     style: TextStyle(
-                      color: Colors.white, // Color del texto del número
+                      color: Colors.white, 
                       fontSize: 12,
                     ),
                   ),
@@ -85,8 +102,16 @@ class PublicationViewPage extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  StoryPage(),
-                  // const PublicationInteractiont(),
+                  Column(
+                    children: [
+                      // Padding(
+                      //   padding: EdgeInsets.only(
+                      //       bottom: 10), // Agrega 10 puntos de espacio vertical
+                      //   child: PublicationInteractiont(),
+                      // ),
+                      StoryPage(),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -121,156 +146,6 @@ class PublicationViewPage extends StatelessWidget {
               return const Center();
             }
           },
-        ),
-      ),
-    );
-  }
-}
-
-
-
-class PublicationItem extends StatelessWidget {
-  final Publication publication;
-
-  PublicationItem(this.publication);
-
-  final _pageController = PageController();
-  final _currentPageNotifier = ValueNotifier<int>(0);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      elevation: 1.0,
-      margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(1.0),
-      ),
-      child: AspectRatio(
-        aspectRatio: 15 / 23,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  publication.description,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: publication.multimedia.length > 1
-                  ? Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        PageView.builder(
-                          controller: _pageController,
-                          itemCount: publication.multimedia.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              height: 2, // Ajusta la altura del contenedor para que la imagen se vea más grande
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                image: DecorationImage(
-                                  image: NetworkImage(publication.multimedia[index].url),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(publication.user.profile_img),
-                                ),
-                                title: Text(
-                                  publication.user.name,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          onPageChanged: (index) {
-                            _currentPageNotifier.value = index;
-                          },
-                        ),
-                        CirclePageIndicator(
-                          selectedDotColor: Colors.white,
-                          dotColor: Colors.grey,
-                          size: 10.0,
-                          selectedSize: 12.0,
-                          itemCount: publication.multimedia.length,
-                          currentPageNotifier: _currentPageNotifier,
-                        ),
-                      ],
-                    )
-                  : Container(
-                      height: 250, // Ajusta la altura del contenedor para que la imagen se vea más grande
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        image: DecorationImage(
-                          image: NetworkImage(publication.multimedia[0].url),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(publication.user.profile_img),
-                        ),
-                        title: Text(
-                          publication.user.name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-            ),
-            Container(
-              color: Colors.transparent,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    icon: Image.asset(
-                      "assets/images/like.png",
-                      color: Colors.black,
-                    ),
-                    onPressed: () {
-                      CustomDialog.showConfirmationDialog(
-                        context,
-                        'No está realizado',
-                        'Chao!',
-                      );
-                    },
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      "assets/images/comments.png",
-                      color: Colors.black,
-                    ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Image.asset(
-                      "assets/images/share.png",
-                      color: Colors.black,
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ),
-          ],
         ),
       ),
     );

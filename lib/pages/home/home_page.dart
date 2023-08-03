@@ -57,11 +57,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BottomNavigationBarItem(
                   icon: ItemNavigationButton(
-                    fileIcon: 'assets/images/logo.png',
+                    fileIcon: 'assets/images/añadir.png',
                     title: 'Page 1',
                   ),
                   activeIcon: ItemNavigationButton(
-                    fileIcon: 'assets/images/logo.png',
+                    fileIcon: 'assets/images/añadir.png',
                     title: 'Page 2',
                     isActive: true,
                   ),

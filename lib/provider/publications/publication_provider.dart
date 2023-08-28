@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:wiki_virtualt/globals/globarVar.dart';
 import 'package:wiki_virtualt/models/response_api_publication.dart';
 
-
 class PublicationProvider extends GetConnect {
   Future<ResponseApiPublications> getPublications() async {
     Response response = await post(apiGraphql, {
@@ -16,9 +15,6 @@ class PublicationProvider extends GetConnect {
              email
               profile_img
                }
-              categories{
-                name
-                  }
                 multimedia{
                   url
                   mimeType
@@ -39,6 +35,4 @@ class PublicationProvider extends GetConnect {
         ResponseApiPublications.fromJson(response.body);
     return responseApiPublications;
   }
-
-  
 }

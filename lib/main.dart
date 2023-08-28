@@ -13,8 +13,10 @@ import 'package:wiki_virtualt/pages/introduccion/onboarding_screen.dart';
 import 'package:wiki_virtualt/pages/introduccion/welcome.dart';
 import 'package:wiki_virtualt/pages/login/login_page.dart';
 import 'package:wiki_virtualt/pages/login/user_log_controller.dart';
+import 'package:wiki_virtualt/pages/post/post_page.dart';
 import 'package:wiki_virtualt/pages/register/register_page.dart';
 import 'package:wiki_virtualt/pages/stories/create_stories_page.dart';
+import 'package:wiki_virtualt/profile/profile_prueba.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +43,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Timer? _timer;
 
-  final UserController userController = Get.put(UserController());
+  // final UserController userController = Get.put(UserController());
   @override
   void initState() {
     super.initState();
@@ -76,6 +78,11 @@ class _MyAppState extends State<MyApp> {
           GetPage(name: '/intro', page: () => OnboardingScreen()),
           GetPage(name: '/createStory', page: () => const CreateStory()),
           GetPage(name: '/welcome', page: () => Welcome()),
+          GetPage(name: '/publicationspage', page: () => PublicationViewPage()),
+          GetPage(name: '/profile', page: () => ProfilePagePrueba()),
+
+
+
         ],
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,

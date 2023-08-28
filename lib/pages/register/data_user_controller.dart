@@ -17,8 +17,8 @@ class ProfileDataController extends GetxController {
     Get.offAllNamed('/login');
   }
 
-  Future<ResponseApiProfile?> getProfile() async {
-    ResponseApiProfile? responseApiLogin = await userProvider.getProfile();
+  Future<UserDataModel?> getProfile() async {
+    UserDataModel? responseApiLogin = await userProvider.getProfile();
     return responseApiLogin;
   }
 

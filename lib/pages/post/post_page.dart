@@ -9,7 +9,7 @@ import 'package:wiki_virtualt/pages/post/post_interaction.dart';
 import 'package:wiki_virtualt/pages/post/publication_content_page.dart';
 import 'package:wiki_virtualt/pages/stories/story.dart';
 import 'package:wiki_virtualt/profile/profile_controller.dart';
-import 'package:wiki_virtualt/provider/publication_provider.dart';
+import 'package:wiki_virtualt/provider/publications/publication_provider.dart';
 import 'package:wiki_virtualt/widgets/custom_dialog.dart';
 import 'package:wiki_virtualt/widgets/notification.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
@@ -21,10 +21,7 @@ class PublicationViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserController userController = Get.find<UserController>();
-    final Userlog? user = userController.user;
     final ProfileController _profileController = ProfileController();
-    final String? profileImageUrl = user?.profileImg;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -32,7 +29,9 @@ class PublicationViewPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         leading: const Center(
           child:
-              CircleAvatar( backgroundColor: Color.fromARGB(255, 27, 218, 27)),
+              CircleAvatar( backgroundColor: Color.fromARGB(255, 27, 218, 27),
+              backgroundImage: AssetImage("assets/images/avatar.png"),
+              ),
         ),
         title: SizedBox(
           width: 300,
@@ -75,6 +74,7 @@ class PublicationViewPage extends StatelessWidget {
                     color: Color.fromARGB(
                         255, 27, 218, 27), 
                     shape: BoxShape.circle,
+                  
                   ),
                   child: const Text(
                     "5",

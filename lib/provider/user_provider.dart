@@ -82,26 +82,20 @@ class UserProvider extends GetConnect {
     Response response = await post(
       apiGraphql,
       {
-        'query': '''
-          mutation {
-            login(
-              loginUserInput: {
-                email: "$email"
-                password: "$password"
-              }
-            )
-            {
-              access_token
-              registered
-              user {
-                profile_img
-                biography
-                name
-                email    
+         'query': '''
+            mutation {
+              login(
+                 loginUserInput: {
+                  email: "$email"
+                  password: "$password"
+                }
+              )
+              {
+                access_token
+            
               }
             }
-          }
-        '''
+          '''
       },
       headers: {
         'Authorization': 'Bearer $token', // Agregar el token como autorización
@@ -170,27 +164,41 @@ class UserProvider extends GetConnect {
     }
   }
 
-  Future<ResponseApiProfile?> getProfile() async {
-    String? token = GetStorage().read('token');
+ Future<UserDataModel?> getProfile() async {
+    String token = GetStorage().read('token');
     try {
       Response response = await post(apiGraphql, {
         'query': '''
-        query {
-          users {
-            id
-            name
-            username
-            biography
+          query { 
+            userById{
+              id
+              name
+              biography
+              profile_img
+              cover_img
+            }
+            publications{
+              description
+              multimedia{
+                mimeType
+                url
+              }
+            }
           }
-        }
-      '''
+        '''
       }, headers: {
         'Authorization': 'Bearer $token'
       });
+
+      // if (response.statusCode != 200) {
+      //   Get.dialog(await _alertGeneric.alertGeneric(
+      //       'Error', 'Algo salio mal, vuelve a intentarlo'));
+      // }
+
       if (response.statusCode == 200) {
         if (response.body != null) {
-          ResponseApiProfile responseApiProfile =
-              ResponseApiProfile.fromJson(response.body);
+          UserDataModel responseApiProfile =
+              UserDataModel.fromJson(response.body);
           return responseApiProfile;
         }
       }
@@ -199,6 +207,9 @@ class UserProvider extends GetConnect {
     }
     return null;
   }
+
+
+
 
   Future<bool> updateProfile(
       String name,

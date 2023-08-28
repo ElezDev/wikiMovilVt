@@ -34,51 +34,19 @@ class Data {
 class Login {
   String? accessToken;
   bool? registered;
-  Userlog user;
 
   Login({
     this.accessToken,
     this.registered,
-    required this.user,
   });
 
   factory Login.fromJson(Map<String, dynamic> json) => Login(
         accessToken: json["access_token"],
         registered: json["registered"],
-        user: Userlog.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
         "access_token": accessToken,
         "registered": registered,
-        "user": user.toJson(),
-      };
-}
-
-class Userlog {
-  String? name;
-  String? email;
-  String? profileImg;
-  String? biography;
-
-  Userlog({
-    this.name,
-    this.email,
-    this.profileImg,
-    this.biography, // Establecer valor predeterminado como null
-  });
-
-  factory Userlog.fromJson(Map<String, dynamic> json) => Userlog(
-        name: json["name"],
-        email: json["email"],
-        profileImg: json["profile_img"],
-        biography: json["biography"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "email": email,
-        "profile_img": profileImg,
-        "biography": biography,
       };
 }

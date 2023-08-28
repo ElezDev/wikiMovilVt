@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_indicators/page_view_indicators.dart';
 import 'package:wiki_virtualt/models/response_api_publication.dart';
+import 'package:wiki_virtualt/pages/post/widgets/commet_post_widget.dart';
 import 'package:wiki_virtualt/widgets/custom_dialog.dart';
 
 class PublicationItem extends StatelessWidget {
@@ -42,7 +43,7 @@ class PublicationItem extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: publication.multimedia.length > 1
+                  child: publication.multimedia.isNotEmpty
                       ? Stack(
                           alignment: Alignment.bottomCenter,
                           children: [
@@ -51,7 +52,7 @@ class PublicationItem extends StatelessWidget {
                               itemCount: publication.multimedia.length,
                               itemBuilder: (context, index) {
                                 return Container(
-                                  height: 2, //
+                                  height: 2,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15.0),
                                     image: DecorationImage(
@@ -95,11 +96,8 @@ class PublicationItem extends StatelessWidget {
                           height: 250,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.0),
-                            image: DecorationImage(
-                              image:
-                                  NetworkImage(publication.multimedia[0].url),
-                              fit: BoxFit.cover,
-                            ),
+                            color: Colors
+                                .grey, // Placeholder color for text-only posts
                           ),
                           child: ListTile(
                             leading: CircleAvatar(
@@ -150,13 +148,33 @@ class PublicationItem extends StatelessWidget {
                       ),
                       Container(
                         padding: EdgeInsets.all(5),
-                        child: IconButton(
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            showBottomSheet(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              context: context,
+                              builder: (context) => AddNewComment(),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
                           icon: Image.asset(
                             "assets/images/comments.png",
                             color: Colors.black,
+                            width: 24,
+                            height: 24,
                           ),
-                          iconSize: 24,
-                          onPressed: () {},
+                          label: Text(
+                            "",
+                            style: TextStyle(),
+                          ),
                         ),
                       ),
                       const Text(
@@ -189,11 +207,10 @@ class PublicationItem extends StatelessWidget {
             child: IconButton(
               icon: const Icon(
                 Icons.more_horiz,
-                color:Color.fromARGB(255, 27, 218, 27),
+                color: Color.fromARGB(255, 27, 218, 27),
               ),
-              iconSize: 50, 
-              onPressed: () {
-              },
+              iconSize: 50,
+              onPressed: () {},
             ),
           ),
         ],

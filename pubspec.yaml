@@ -47,6 +47,11 @@ dependencies:
   elegant_notification: ^1.10.1
   google_nav_bar: ^5.0.6
   page_view_indicators: ^2.0.0
+  gap: ^3.0.1
+  shared_preferences: ^2.2.0
+  permission_handler: ^10.4.3
+  video_player: ^2.7.0
+  geolocator: ^10.0.0
   
   
 dev_dependencies:

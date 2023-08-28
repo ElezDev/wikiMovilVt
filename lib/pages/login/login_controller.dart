@@ -13,8 +13,8 @@ class LoginController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   final UserProvider userProvider = UserProvider();
   final AlertGeneric _alertGeneric = AlertGeneric();
-  final UserController userController = Get.put(UserController());
-  final DataProfileController userDataController = Get.put(DataProfileController());
+  // final UserController userController = Get.put(UserController());
+  // final DataProfileController userDataController = Get.put(DataProfileController());
 
 
 
@@ -48,9 +48,9 @@ goToInicioPage() {
         Get.offAllNamed('/welcome');
         return;
       }
-      print('Data de inicio de sesión: ${responseApiLogin.data.login.user.name}');
-      userController.setUser(responseApiLogin.data.login.user);
-      userDataController.setUserdata(responseApiLogin.data.login.user);
+      // print('Data de inicio de sesión: ${responseApiLogin.data.login.user.name}');
+      // userController.setUser(responseApiLogin.data.login.user);
+      // userDataController.setUserdata(responseApiLogin.data.login.user);
 
       goToHomePage();
     } on Failure catch (e) {

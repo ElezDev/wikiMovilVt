@@ -14,7 +14,7 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-    final UserController userController = Get.find<UserController>();
+    // final UserController userController = Get.find<UserController>();
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _WelcomeState extends State<Welcome> {
   }
 
   SafeArea _bodyProfile(BuildContext context) {
-    final user = userController.user;
+    // final user = userController.user;
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.symmetric(
@@ -65,14 +65,14 @@ class _WelcomeState extends State<Welcome> {
                     fontWeight: FontWeight.w200,
                   ),
                 ),
-                Text(
-                  '${user?.name ?? ''}',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: MediaQuery.of(context).size.width * 0.08,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                // Text(
+                //   '${user?.name ?? ''}',
+                //   style: TextStyle(
+                //     color: Colors.white,
+                //     fontSize: MediaQuery.of(context).size.width * 0.08,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
               ],
             ),
             const SizedBox(height: 10),

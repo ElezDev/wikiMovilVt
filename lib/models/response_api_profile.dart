@@ -1,20 +1,24 @@
+// To parse this JSON data, do
+//
+//     final userDataModel = userDataModelFromJson(jsonString);
+
 import 'dart:convert';
 
-ResponseApiProfile responseApiProfileFromJson(String str) =>
-    ResponseApiProfile.fromJson(json.decode(str));
+UserDataModel userDataModelFromJson(String str) =>
+    UserDataModel.fromJson(json.decode(str));
 
-String responseApiProfileToJson(ResponseApiProfile data) =>
+String userDataModelToJson(UserDataModel data) =>
     json.encode(data.toJson());
 
-class ResponseApiProfile {
+class UserDataModel {
   Data data;
 
-  ResponseApiProfile({
+  UserDataModel({
     required this.data,
   });
 
-  factory ResponseApiProfile.fromJson(Map<String, dynamic> json) =>
-      ResponseApiProfile(
+  factory UserDataModel.fromJson(Map<String, dynamic> json) =>
+      UserDataModel(
         data: Data.fromJson(json["data"]),
       );
 
@@ -24,45 +28,94 @@ class ResponseApiProfile {
 }
 
 class Data {
-  List<User> users;
+  UserById userById;
+  List<Publication> publications;
 
   Data({
-    required this.users,
+    required this.userById,
+    required this.publications,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        users: List<User>.from(json["users"].map((x) => User.fromJson(x))),
+        userById: UserById.fromJson(json["userById"]),
+        publications: List<Publication>.from(
+            json["publications"].map((x) => Publication.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "users": List<dynamic>.from(users.map((x) => x.toJson())),
+        "userById": userById.toJson(),
+        "publications": List<dynamic>.from(publications.map((x) => x.toJson())),
       };
 }
 
-class User {
+class UserById {
   int id;
   String name;
-  String username;
+  String profileImg;
+  String coverImg;
   String biography;
 
-  User({
+  UserById({
     required this.id,
     required this.name,
-    required this.username,
+    required this.profileImg,
+    required this.coverImg,
     required this.biography,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserById.fromJson(Map<String, dynamic> json) => UserById(
         id: json["id"],
         name: json["name"],
-        username: json["username"],
+        profileImg: json["profile_img"],
+        coverImg: json["cover_img"],
         biography: json["biography"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "name": name,
-        "username": username,
+        "profile_img": profileImg,
+        "cover_img": coverImg,
         "biography": biography,
+      };
+}
+
+class Publication {
+  String description;
+  List<Multimedia> multimedia;
+
+  Publication({
+    required this.description,
+    required this.multimedia,
+  });
+
+  factory Publication.fromJson(Map<String, dynamic> json) => Publication(
+        description: json["description"],
+        multimedia: List<Multimedia>.from(
+            json["multimedia"].map((x) => Multimedia.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "description": description,
+        "multimedia": List<dynamic>.from(multimedia.map((x) => x.toJson())),
+      };
+}
+
+class Multimedia {
+  String url;
+  String mimeType;
+
+  Multimedia({
+    required this.url,
+    required this.mimeType,
+  });
+
+  factory Multimedia.fromJson(Map<String, dynamic> json) => Multimedia(
+        url: json["url"],
+        mimeType: json["mimeType"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "url": url,
+        "mimeType": mimeType,
       };
 }

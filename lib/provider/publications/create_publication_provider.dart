@@ -45,45 +45,45 @@ class CreatePublicationProvider extends GetxController {
   }
   
 
-  Future<void> addLocation(String publicationId) async {
-    double latitude = 0;
-    double longitude = 0;
-    try {
-      latitude = GetStorage().read('lat');
-      longitude = GetStorage().read('lng');
-    } catch (e) {
-      latitude = 0;
-      longitude = 0;
-    }
+  // Future<void> addLocation(String publicationId) async {
+  //   double latitude = 0;
+  //   double longitude = 0;
+  //   try {
+  //     latitude = GetStorage().read('lat');
+  //     longitude = GetStorage().read('lng');
+  //   } catch (e) {
+  //     latitude = 0;
+  //     longitude = 0;
+  //   }
 
-    String token = GetStorage().read('token');
-    http.Response response = await http.post(
-      Uri.parse(apiGraphql),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json'
-      },
-      body: json.encode({
-        'query': '''
-          mutation {
-            ubicationPublication(ubicationPublication: {
-              latitud: $latitude,
-              longitud: $longitude,
-              publicationId: "$publicationId"
-            }) {
-              description
-            }
-          }
-        '''
-      }),
-    );
+  //   String token = GetStorage().read('token');
+  //   http.Response response = await http.post(
+  //     Uri.parse(apiGraphql),
+  //     headers: {
+  //       'Authorization': 'Bearer $token',
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: json.encode({
+  //       'query': '''
+  //         mutation {
+  //           ubicationPublication(ubicationPublication: {
+  //             latitud: $latitude,
+  //             longitud: $longitude,
+  //             publicationId: "$publicationId"
+  //           }) {
+  //             description
+  //           }
+  //         }
+  //       '''
+  //     }),
+  //   );
 
-    if (response.statusCode != 200) {
-      Get.snackbar('Error', 'Something went wrong');
-    }
+  //   if (response.statusCode != 200) {
+  //     Get.snackbar('Error', 'Something went wrong');
+  //   }
 
-    print('Objeto completo - addLocation: ${response.body}');
-  }
+  //   print('Objeto completo - addLocation: ${response.body}');
+  // }
 
   Future<void> uploadImage(File imageFile, String publicationId) async {
     String token = GetStorage().read('token');

@@ -21,7 +21,6 @@ Future<void> crearPublicacion(List<File?> selectedImages, List<File?> selectedVi
   }
 
   String publicationId = await _publicationProvider.createPublication(descripcion);
-  await _publicationProvider.addLocation(publicationId);
   GetStorage().write('publication_id', publicationId);
 
   for (File? imageFile in selectedImages) {

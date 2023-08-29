@@ -30,13 +30,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Keep track of the selected tab index
   int _selectedIndex = 0;
-
-  // Define the pages for each tab
   final List<Widget> _tabPages = [
-    PublicationViewPage(), // Assuming this is the correct page
-    CreatePostPage(),
+    PublicationViewPage(),
+    CreatePostPage(), // Create a new instance every time
     ProfilePagePrueba(),
   ];
 
@@ -48,9 +45,9 @@ class _HomePageState extends State<HomePage> {
           brightness: Brightness.light,
         ),
         child: Scaffold(
-          body: _tabPages[_selectedIndex], // Show the selected tab page
+          body: _tabPages[_selectedIndex],
           bottomNavigationBar: CupertinoTabScaffold(
-            tabBar: CupertinoTabBar(
+             tabBar: CupertinoTabBar(
               backgroundColor: Colors.transparent,
               height: 54,
               items: const [
@@ -70,7 +67,13 @@ class _HomePageState extends State<HomePage> {
                     fileIcon: 'assets/images/añadir.png',
                     title: 'Page 1',
                   ),
+                     activeIcon: ItemNavigationButton(
+                    fileIcon: 'assets/images/añadir.png',
+                    title: 'Home',
+                    isActive: true,
+                  ),
                 ),
+
                 BottomNavigationBarItem(
                   icon: ItemNavigationButton(
                     fileIcon: 'assets/images/profile.png',
@@ -85,7 +88,6 @@ class _HomePageState extends State<HomePage> {
               ],
               currentIndex: _selectedIndex, // Set the current index
               onTap: (index) {
-                // Change the selected tab index when a tab is tapped
                 setState(() {
                   _selectedIndex = index;
                 });
@@ -93,7 +95,7 @@ class _HomePageState extends State<HomePage> {
             ),
             tabBuilder: (context, index) {
               return CupertinoTabView(builder: (BuildContext context) {
-                // Use the correct page for each tab
+                // Create a new instance of the page every time
                 return _tabPages[index];
               });
             },
